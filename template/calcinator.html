@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calcinator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container" style="max-width: 500px;">
+      <h1>Calcinator</h1>
+      <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+          <div class="form-group">
+            <label>{{ form.hemoglobin.label }}</label>
+              {{ form.hemoglobin(class='form-control') }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.neutrophil.label }}</label>
+            {{ form.neutrophil(class='form-control') }}  
+          </div>
+          <div class="form-group">
+            <label>{{ form.platelet.label }}</label>
+            {{ form.platelet(class='form-control') }}  
+          </div>
+          <div class="form-group">
+            <label>{{ form.bone_marrow_blast.label }}</label>
+            {{ form.bone_marrow_blast(class='form-control') }}  
+          </div>
+          <div class="form-group">
+            <label>{{ form.cytogenic_category.label }}</label>
+            {% for subfield in form.cytogenic_category %}
+            <div class="form-check">
+              {{ subfield(class='form-check-input') }}
+              {{ subfield.label(class='form-check-label')}}
+            </div>
+            {% endfor %}
+          </div>
+          {{ form.submit(class='btn btn-primary') }}
+      </form>
+      <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% if error != None %}
+          {{ error }}
+        {% endif %}
+    </div>
+  </body>
+</html>
