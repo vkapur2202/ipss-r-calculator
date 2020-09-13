@@ -2,17 +2,20 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField, BooleanField, SubmitField, RadioField
 from wtforms.validators import DataRequired
 from flask import Flask, render_template, flash
+
+import emoji
+
 app = Flask(__name__, template_folder='template')
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 class CalculatorForm(FlaskForm):
-  hemoglobin = IntegerField('Enter hemoglobin levels in g/dl:', validators=[DataRequired()])
-  neutrophil = IntegerField('Enter absolute neutrophil count:', validators=[DataRequired()])
-  platelet = IntegerField('Enter platelet level:', validators=[DataRequired()])
-  bone_marrow_blast = IntegerField('Enter bone marrow blast percent:', validators=[DataRequired()])
-  cytogenic_category = RadioField('Enter cytogenic category:',
+  hemoglobin = IntegerField('Hemoglobin', validators=[DataRequired()])
+  neutrophil = IntegerField('Absolute Neutrophil Count', validators=[DataRequired()])
+  platelet = IntegerField('Platelets', validators=[DataRequired()])
+  bone_marrow_blast = IntegerField('Bone Marrow Blasts', validators=[DataRequired()])
+  cytogenic_category = RadioField('Cytogenetic Category',
     choices=[('Very Good', 'Very Good'), ('Good', 'Good'), ('Intermediate', 'Intermediate'), ('Poor', 'Poor'), ('Very Poor', 'Very Poor')], validators=[DataRequired()])
-  submit = SubmitField('Calculate Prognosis!')
+  submit = SubmitField('Calculate Prognosis')
 
 def getCytogenicScore(category):
   if category == "very good":
@@ -87,10 +90,14 @@ def calculate():
     total_score = getTotalScore([form.hemoglobin.data, form.neutrophil.data, form.platelet.data, form.bone_marrow_blast.data, form.cytogenic_category.data.lower()])
     risk_category = getRiskCategory(total_score)
     flash("IPSS-R Score: " + str(total_score))
-    flash("IPSS-R Category: " + risk_category)
+    if risk_category == "High" or risk_category == "Very High":
+      flash("IPSS-R Category: " + risk_category + " " + emoji.emojize(":ambulance:"))
+    else:
+      flash("IPSS-R Category: " + risk_category)
+
   elif form.errors:
     error = 'Invalid Input. Please check your input and try again.'
   return render_template('calcinator.html', form = form, error = error)
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=False)

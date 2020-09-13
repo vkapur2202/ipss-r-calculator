@@ -6,23 +6,28 @@
   </head>
   <body>
     <div class="container" style="max-width: 500px;">
-      <h1>Calcinator</h1>
+      <h1>Calcinator &#128540</h1>
+      <div style="height: 10px"></div>
+      <p>
+        All fields are in the format: <br>
+        Variables (units) [usual range]
+      </p>
       <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
           <div class="form-group">
-            <label>{{ form.hemoglobin.label }}</label>
+            <label>{{ form.hemoglobin.label }} (g/dL) [4-20]:</label>
               {{ form.hemoglobin(class='form-control') }}
           </div>
           <div class="form-group">
-            <label>{{ form.neutrophil.label }}</label>
+            <label>{{ form.neutrophil.label }} (x10<sup>9</sup>/L) [0-15]:</label>
             {{ form.neutrophil(class='form-control') }}  
           </div>
           <div class="form-group">
-            <label>{{ form.platelet.label }}</label>
+            <label>{{ form.platelet.label }} (x10<sup>9</sup>/L) [0-2000]:</label>
             {{ form.platelet(class='form-control') }}  
           </div>
           <div class="form-group">
-            <label>{{ form.bone_marrow_blast.label }}</label>
+            <label>{{ form.bone_marrow_blast.label }} (percent) [0-30]:</label>
             {{ form.bone_marrow_blast(class='form-control') }}  
           </div>
           <div class="form-group">
@@ -34,7 +39,7 @@
             </div>
             {% endfor %}
           </div>
-          {{ form.submit(class='btn btn-primary') }}
+          {{ form.submit(class='btn btn-primary') }} &#128072
       </form>
       <hr>
         {% with messages = get_flashed_messages() %}
