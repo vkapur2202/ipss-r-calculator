@@ -8,7 +8,7 @@ git clone https://github.com/vkapur2202/ipss-r-calculator.git calc
 cd calc
 ```
 2. Setup a python3 virtual environment and install the requirements.
-We assume you have virtualenv and python3
+We assume you have virtualenv and python3.
 ```sh
 # create the environment
 virtualenv -p python3 venv
