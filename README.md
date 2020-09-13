@@ -23,6 +23,6 @@ python calc.py
 ```
 4. It should show you that it is listening on localhost:5000
 
-5. Open (http://localhost:5000)[http://localhost:5000] in your browser.
+5. Open [http://localhost:5000](http://localhost:5000) in your browser.
 
 6. Profit!
