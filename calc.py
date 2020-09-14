@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField, BooleanField, SubmitField, RadioField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, NumberRange
 from flask import Flask, render_template, flash
 
 import emoji
@@ -9,10 +9,10 @@ app = Flask(__name__, template_folder='template')
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 class CalculatorForm(FlaskForm):
-  hemoglobin = IntegerField('Hemoglobin', validators=[DataRequired()])
-  neutrophil = IntegerField('Absolute Neutrophil Count', validators=[DataRequired()])
-  platelet = IntegerField('Platelets', validators=[DataRequired()])
-  bone_marrow_blast = IntegerField('Bone Marrow Blasts', validators=[DataRequired()])
+  hemoglobin = IntegerField('Hemoglobin', validators=[DataRequired(), NumberRange(min=4, max=20, message='Out of range')])
+  neutrophil = IntegerField('Absolute Neutrophil Count', validators=[DataRequired(), NumberRange(min=0, max=15, message='Out of range')])
+  platelet = IntegerField('Platelets', validators=[DataRequired(), NumberRange(min=0, max=2000, message='Out of range')])
+  bone_marrow_blast = IntegerField('Bone Marrow Blasts', validators=[DataRequired(), NumberRange(min=0, max=30, message='Out of range')])
   cytogenic_category = RadioField('Cytogenetic Category',
     choices=[('Very Good', 'Very Good'), ('Good', 'Good'), ('Intermediate', 'Intermediate'), ('Poor', 'Poor'), ('Very Poor', 'Very Poor')], validators=[DataRequired()])
   submit = SubmitField('Calculate Prognosis')
